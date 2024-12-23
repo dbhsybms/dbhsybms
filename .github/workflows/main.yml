@@ -22,7 +22,7 @@ jobs:
     - name: Update 
       run: |
         
-        sed -i "/<!-- quote -->/,/<!-- etouq -->/c\<!-- quote --> ${QUOTE} <!-- etouq -->" README.md
+        sed -i "s|<!-- quote -->.*<!-- etouq -->|<!-- quote -->  \"${QUOTE}\" <!-- etouq -->|" README.md
 
     - name: Commit and push
       uses: EndBug/add-and-commit@v9
