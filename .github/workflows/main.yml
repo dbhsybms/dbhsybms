@@ -1,7 +1,7 @@
 name: Update README
 on:
   schedule:
-    - cron: '0 0 * * *'  
+    - cron: '0 3 * * 0'  
   workflow_dispatch:   
 
 jobs:
@@ -22,7 +22,7 @@ jobs:
     - name: Update 
       run: |
         
-        sed -i "s|<!-- quote -->.*<!-- etouq -->|<!-- quote -->  \"${QUOTE}\" <!-- etouq -->|" README.md
+        sed -i "s|<!-- quote -->.*<!-- etouq -->|<!-- quote -->  ${QUOTE} <!-- etouq -->|" README.md
 
     - name: Commit and push
       uses: EndBug/add-and-commit@v9
