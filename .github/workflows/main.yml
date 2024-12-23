@@ -1,0 +1,33 @@
+name: Update README
+on:
+  schedule:
+    - cron: '0 0 * * *'  
+  workflow_dispatch:   
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Fetch quote 
+      run: |
+        
+        quote=$(curl -s "https://v1.hitokoto.cn/?c=i&encode=text")
+        
+        echo "QUOTE=${quote}" >> $GITHUB_ENV
+
+    - name: Update 
+      run: |
+        
+        sed -i "/<!-- quote -->/,/<!-- etouq -->/c\<!-- quote --> ${QUOTE} <!-- etouq -->" README.md
+
+    - name: Commit and push
+      uses: EndBug/add-and-commit@v9
+      with:
+        author_name: 'GitHub Actions'
+        author_email: 'actions@github.com'
+        message: 'Update README'
+        add: 'README.md'
